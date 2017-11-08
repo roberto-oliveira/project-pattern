@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BD_DATABASE_TESTS" Class="MusicDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=S1445;Initial Catalog=BD_DATABASE_TESTS;Persist Security Info=True;User ID=SA" SettingsObjectName="GenericMapper.Properties.Settings" SettingsPropertyName="BD_DATABASE_TESTSConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Album" Member="Albums">
+    <Type Name="Album">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Album_AlbumArtista" Member="AlbumArtistas" ThisKey="Id" OtherKey="Album_Id" Type="AlbumArtista" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Artista" Member="Artistas">
+    <Type Name="Artista">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Artista_AlbumArtista" Member="AlbumArtistas" ThisKey="Id" OtherKey="Artista_Id" Type="AlbumArtista" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AlbumArtista" Member="AlbumArtistas">
+    <Type Name="AlbumArtista">
+      <Column Name="Album_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Artista_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Album_AlbumArtista" Member="Album" ThisKey="Album_Id" OtherKey="Id" Type="Album" IsForeignKey="true" />
+      <Association Name="Artista_AlbumArtista" Member="Artista" ThisKey="Artista_Id" OtherKey="Id" Type="Artista" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
