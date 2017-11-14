@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -11,7 +10,6 @@ using System.Runtime.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Xml.Serialization;
 
 namespace GenericBase
 {
@@ -99,7 +97,23 @@ namespace GenericBase
 
             return item;
         }
+        // Func recebe a entidade/classe (ex produto)
+        // a ser usada na pesquisa, portanto, é dinâmica
 
+        //public IQueryable<TEntity> Get(Func<TEntity, bool> predicate)
+        //{
+        //    //TEntity = é uma classe, ex Produtos, Clientes
+        //    // predicate = é a expressão de filtro
+        //    // p => p.Preco > 10
+        //    // AsQueryable = converte para uma lista consultável
+        //    // .Set<> referencia a entidade dinamicamente
+        //    return ctx.Set<TEntity>().Where(predicate).AsQueryable();
+        //}
+
+        public IQueryable<TEntity> ConsultaGenerica(Func<TEntity, bool> expressionLambda)
+        {
+            return _dataContext.GetTable<TEntity>().Where(expressionLambda).AsQueryable();
+        }
 
     }
 
@@ -176,19 +190,5 @@ namespace GenericBase
             }
         }
 
-        public static string XmlSerializerObject<T>(this T valor)
-        {
-            var xml = new XmlSerializer(valor.GetType());
-            var retorno = new StringWriter();
-            xml.Serialize(retorno, valor);
-            return retorno.ToString();
-        }
-
-        public static object XmlDeserializerObject(string valor, Type tipo)
-        {
-            var xml = new XmlSerializer(tipo);
-            var valorSerealizado = new StringReader(valor);
-            return xml.Deserialize(valorSerealizado);
-        }
     }
 }
