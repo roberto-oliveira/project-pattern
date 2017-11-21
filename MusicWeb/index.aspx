@@ -11,6 +11,9 @@
     <div>
         <asp:GridView ID="gvAlbums" runat="server"></asp:GridView>
     </div>
+        <div>
+            <asp:GridView ID="gvReturnDataJsonFormat" runat="server"></asp:GridView>
+        </div>
     </form>
 </body>
 </html>
