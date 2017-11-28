@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -19,31 +19,14 @@ namespace MusicWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //GetListAlbums();
-
-            //var listaAlbums = new JavaScriptSerializer().Serialize(_albums);
-
-            var jsonListEntitiesFormatJson = _albumDao.GetListEntitiesFormatJson(_albums);
-
-            ////var json = _albumDao.SerializeFormatJson(_album);
-
-            ////var teste = _albumDao.GetGeneric(a => a.Id == 1);
-
-            gvReturnDataJsonFormat.DataSource = _jss.Deserialize<List<Album>>(jsonListEntitiesFormatJson);
-            gvReturnDataJsonFormat.DataBind();
-
-
-
+            GetListAlbums();
         }
 
         private void GetListAlbums()
         {
-            //_albums = _albumDao.GetGeneric(a => a.Nome.Contains("You")).ToList();
-
-            //this.gvAlbums.DataSource = _albums;
-            //this.gvAlbums.DataBind();
-
-            //this.gvAlbums.DataSource = new MusicDataContext().Albums.ToList();
+            _albums = _albumDao.GetNormalList();
+            this.gvAlbums.DataSource = _albums;
+            this.gvAlbums.DataBind();
         }
     }
 }
