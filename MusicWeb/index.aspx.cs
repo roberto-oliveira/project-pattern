@@ -24,7 +24,7 @@ namespace MusicWeb
 
         private void GetListAlbums()
         {
-            _albums = _albumDao.GetNormalList();
+            _albums = _albumDao.GetList();
             this.gvAlbums.DataSource = _albums;
             this.gvAlbums.DataBind();
         }
